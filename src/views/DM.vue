@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router';
 import Header from '@/components/Header.vue';
 import Rules from '@/components/Rules.vue';
 import DMRules from '@/components/DMRules.vue';
+import DiceWizard from '@/components/DiceWizard.vue';
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import DMRules from '@/components/DMRules.vue';
 
     <div class="container">
       <Header posttitle="You are the" title="disaster master" />
+      <DiceWizard/>
       <DMRules />
       <Rules />
     </div>

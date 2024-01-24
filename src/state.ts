@@ -27,7 +27,7 @@ export const state = ref({
     class: randomRange(0, classes.length - 1),
     pocketContents: defaultPocketContents[randomRange(0, defaultPocketContents.length - 1)],
     note: `Belongs to the "${parties.guild()}" guild.`
-  }
+  },
 });
 
 watch(state, saveLocalState, { deep: true });
