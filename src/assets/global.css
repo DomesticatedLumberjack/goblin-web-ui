@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+  position: relative;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: #00C130;
+  font-weight: bold;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+fieldset legend {
+  font-family: 'Caudex', serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+fieldset {
+  border: 1px dotted black;
+}
+
+button {
+  font-size: inherit;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background-color: #00C130;
+  color: white;
+  border-radius: 50px;
+  padding: 0.15em 0.5em;
+}
+
+a {
+  color: #00C130;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+@media (max-width: 732px) {
+  html, body {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 584px) {
+  html, body {
+    font-size: 11px;
+  }
+}
