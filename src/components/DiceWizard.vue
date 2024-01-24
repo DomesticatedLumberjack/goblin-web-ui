@@ -13,7 +13,7 @@ interface Die {
 
 const color = 'white';
 
-const diceCount = 6;
+const diceCount = 7;
 const diceValues = ref<Die[]>([]);
 for (var i = 0; i < diceCount; i++) {
   diceValues.value.push({
@@ -120,6 +120,7 @@ function mouseLeaveDie() {
           @mouseenter="mouseEnterDie(index)"
           @mouseleave="mouseLeaveDie()"
           @mousedown="mouseDownDie(index)"
+          @click="mouseDownDie(index)"
           :style="dieContainerStyles(index)"
         >
           <div :style="dieStyles(index)" class="inner-die"></div>

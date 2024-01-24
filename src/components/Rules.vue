@@ -8,7 +8,7 @@
         npcs, asks the players what they will
         do, the players get up to various forms
         of goblin mischief and the dm describes
-        the ovtcomes based on their actions.
+        the outcomes based on their actions.
       </p>
   
       <p><strong>To do anything, do it.</strong></p>
