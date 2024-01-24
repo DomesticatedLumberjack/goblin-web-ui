@@ -9,7 +9,7 @@ import white2 from '@/assets/images/dice/dieWhite2.png';
 import white3 from '@/assets/images/dice/dieWhite3.png';
 import white4 from '@/assets/images/dice/dieWhite4.png';
 import white5 from '@/assets/images/dice/dieWhite5.png';
-import white6 from '@/assets/images/dice/diewhite6.png';
+import white6 from '@/assets/images/dice/dieWhite6.png';
 
 export const redDice = [
   red1,
