@@ -1,23 +1,110 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRafFn } from '@vueuse/core'
 import { getDie } from '@/dice';
+import { randomRange } from '@/utils';
 
-const selectedDice = ref<boolean[]>([]);
-const diceResults = ref<number[]>([ 1, 2, 3, 4, 5, 6 ]);
-diceResults.value.forEach((_, i) => selectedDice.value.push(false));
-const total = ref<number | null>(null);
+const viewingResults = ref(false);
 
-function rollDice(){
-  total.value = 0;
-  selectedDice.value.forEach((x, i) => {
-    if (!x || total.value == null) return;
+interface Die {
+  value: number;
+  active: boolean;
+}
 
-    const roll = Math.floor(Math.random() * 6) + 1;
-    total.value += roll
-    diceResults.value[i] = roll;
+const color = 'white';
+
+const diceCount = 6;
+const diceValues = ref<Die[]>([]);
+for (var i = 0; i < diceCount; i++) {
+  diceValues.value.push({
+    value: 1,
+    active: false
+  });
+}
+
+const lastAngle = ref(-5);
+
+const fpsLimit = 30;
+const intervalLimit = 1000 / fpsLimit;
+let previousFrameTimestamp = Date.now();
+
+const angleFpsLimit = 15;
+const angleIntervalLimit = 1000 / angleFpsLimit;
+let previousAngleFrameTimestamp = Date.now();
+useRafFn(() => {
+  const delta = Date.now() - previousFrameTimestamp;
+
+  if (delta > intervalLimit) {
+    previousFrameTimestamp = Date.now();
+    animate();
+  }
+
+  const angleDelta = Date.now() - previousAngleFrameTimestamp;
+  if (angleDelta > angleIntervalLimit) {
+    previousAngleFrameTimestamp = Date.now();
+    lastAngle.value = lastAngle.value * -1;
+  }
+});
+
+function animate() {
+  if (viewingResults.value) return;
+
+  diceValues.value = diceValues.value.map(die => {
+    die.value = randomRange(1, 6);
+    return die;
+  });
+}
+
+function reset() {
+  viewingResults.value = false;
+  mouseLeaveDie();
+}
+
+function dieStyles(index: number) {
+  const die = diceValues.value[index];
+
+  return {
+    background: die.active ? `url(${getDie(die.value, color)}` : '',
+    opacity: viewingResults.value ? 1 : 0.5
+  }
+}
+
+function dieContainerStyles(index: number) {
+  const die = diceValues.value[index];
+
+  return {
+    transform: (!viewingResults.value && die.active) ? `rotate(${lastAngle.value}deg)` : '',
+    borderStyle: (viewingResults.value && die.active) ? 'solid' : 'dotted'
+  }
+}
+
+function mouseDownDie(index: number) {
+  if (viewingResults.value) return;
+
+  diceValues.value = diceValues.value.map((die, i) => {
+    if (i <= index) die.active = true;
+    return die;
   });
 
-  if (total.value === 0) total.value = null;
+  viewingResults.value = true;
+}
+
+function mouseEnterDie(index: number) {
+  if (viewingResults.value) return;
+
+  diceValues.value = diceValues.value.map((die, i) => {
+    if (i <= index) die.active = true;
+    return die;
+  });
+}
+
+function mouseLeaveDie() {
+  if (viewingResults.value) return;
+
+  diceValues.value = diceValues.value.map(die => {
+    die.active = false;
+    return die;
+  });
 }
 </script>
 
@@ -25,23 +112,20 @@ function rollDice(){
   <div class="container">
     <fieldset>
       <legend>Dice</legend>
+
       <div class="dice-area">
-        <img 
-        v-for="res, i in diceResults" 
-        :src="getDie(res, 'red')"
-        :class="selectedDice[i] ? 'selected' : 'not-selected'"
-        @click="() => selectedDice[i] = !selectedDice[i]"
-        >  
+        <div
+          class="die"
+          v-for="(_, index) in diceCount"
+          @mouseenter="mouseEnterDie(index)"
+          @mouseleave="mouseLeaveDie()"
+          @mousedown="mouseDownDie(index)"
+          :style="dieContainerStyles(index)"
+        >
+          <div :style="dieStyles(index)" class="inner-die"></div>
+        </div>
         <div class="results">
-          <button 
-            :disabled="!selectedDice.includes(true)"
-            @click="rollDice()"
-            >
-            Roll
-          </button>
-          <div>
-            Result: {{ total }}
-          </div>
+          <button @click="reset()">Reset</button>
         </div>
       </div>
     </fieldset>
@@ -54,6 +138,7 @@ function rollDice(){
   padding: 0px;
   margin-bottom: 1em;
 }
+
 .dice-area {
   display: flex;
   justify-content: space-around;
@@ -66,22 +151,20 @@ function rollDice(){
   justify-content: center;
 }
 
-button {
-  margin-bottom: 10px;
+.inner-die {
+  width: 100%;
+  height: 100%;
 }
 
-img {
+.die {
   margin: auto;
-  border: 1px solid black;
+  border: 2px dotted black;
   border-radius: 25%;
-}
-
-.selected {
-  filter: brightness(100%);
-}
-
-.not-selected {
-  filter: brightness(30%);
+  height: 66px;
+  width: 66px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.1s;
 }
 
 @media screen and (max-width: 700px) {

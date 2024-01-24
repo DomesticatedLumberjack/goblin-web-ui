@@ -12,8 +12,8 @@ import DiceWizard from '@/components/DiceWizard.vue';
 
     <div class="container">
       <Header posttitle="You are a" title="Goblin with a fat ass" />
-      <DiceWizard/>
       <ScenarioReadonly />
+      <DiceWizard/>
       <PlayerSheet />
       <Rules />
     </div>

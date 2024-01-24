@@ -30,11 +30,5 @@ export const whiteDice = [
 ];
 
 export function getDie(num: number, color: 'red' | 'white') {
-  if (num > 6 || num <= 0) console.error("cant get die for number: " + num);
-  if (color === 'red'){
-    return redDice[num - 1];
-  }
-  else {
-    return whiteDice[num - 1];
-  }
+  return (color === 'red' ? redDice : whiteDice)[num - 1];
 }
