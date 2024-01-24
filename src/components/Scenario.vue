@@ -43,7 +43,7 @@ function copyCode() {
 
     <div class="story-select">
       <label>The mark:</label>
-      <select v-model="state.location">
+      <select v-model="state.mark">
         <option v-for="(mark, index) in marks" :value="index">{{ mark }}</option>
       </select>
     </div>
