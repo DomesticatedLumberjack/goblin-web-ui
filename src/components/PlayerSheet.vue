@@ -9,6 +9,7 @@ import {
 import { randomRange } from '@/utils';
 import { state } from '@/state';
 import { parties, species } from 'fantastical';
+import DiceWizard from './DiceWizard.vue';
 
 function randomize() {
   const areYouSure = confirm('Are you sure you want to reroll your character? You will lose your notes and pocket contents.');
@@ -50,6 +51,7 @@ function randomizeNotes(force = false) {
 </script>
 
 <template>
+  <!-- <DiceWizard/> -->
   <fieldset>
     <legend>Player Sheet</legend>
 
