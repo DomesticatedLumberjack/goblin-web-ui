@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Scenario from './Scenario.vue';
 import ChaosClock from './ChaosClock.vue';
-import ScenarioReadonly from './ScenarioReadonly.vue';
-import DiceWizard from './DiceWizard.vue';
 </script>
 
 <template>

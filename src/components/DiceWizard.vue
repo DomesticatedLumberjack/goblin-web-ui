@@ -13,7 +13,7 @@ interface Die {
 
 const color = 'white';
 
-const diceCount = 6;
+const diceCount = 7;
 const diceValues = ref<Die[]>([]);
 for (var i = 0; i < diceCount; i++) {
   diceValues.value.push({
