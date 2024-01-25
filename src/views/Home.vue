@@ -12,6 +12,7 @@ import Header from '@/components/Header.vue';
 
     <footer>
       coded by <a href="https://topheranselmo.com/">topher</a><br>
+      source code <a href="https://github.com/christopherwk210/goblin-with-a-fat-ass">here</a><br>
       based on <a target="_blank" href="https://x.com/Orbitaldropkick/status/1728889290040680461?s=20">this tweet by Tom Bloom</a>.
     </footer>
   </div>

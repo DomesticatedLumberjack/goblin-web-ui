@@ -79,7 +79,7 @@ import ChaosClock from './ChaosClock.vue';
         <li>something that wasn't supposed to break breaks</li>
         <li>drop or lose track of something important</li>
         <li>something goes wildly out of control</li>
-        <li>someone gets split from the group (guards, convenient hrach, slide)</li>
+        <li>someone gets split from the group (guards, convenient hatch, slide)</li>
       </ul>
     </fieldset>
   </div>
