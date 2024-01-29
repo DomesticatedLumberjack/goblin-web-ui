@@ -29,7 +29,7 @@ export default class SocketManager {
       ], () => this.playerUpdate());
   }
 
-  connect(): void {
+  connect() {
     this.socket = new WebSocket(address);
 
     this.socket.addEventListener("open", () => {
@@ -41,10 +41,10 @@ export default class SocketManager {
 
       switch (message.command) {
         case "update":
-          this.handleUpdate(message as UpdateMessage);
+          this.handleUpdateMessage(message as UpdateMessage);
           break;
         case "quit":
-          this.handleQuit();
+          this.handleQuitMessage();
           break;
         default:
           console.warn("Received unknown command:", message.command);
@@ -61,7 +61,10 @@ export default class SocketManager {
       liveState.value.dice = [];
 
       if (this.reconnect) {
-        setTimeout(() => this.connect(), 1000);
+        setTimeout(() => {
+          console.log("Reconnecting to WebSocket...");
+          this.connect();
+        }, 1000);
       }
     });
 
@@ -70,7 +73,7 @@ export default class SocketManager {
     });
   }
 
-  disconnect(): void {
+  disconnect() {
     if (this.socket) {
       this.socket.close();
       this.socket = null;
@@ -81,7 +84,7 @@ export default class SocketManager {
     }
   }
 
-  handleUpdate(update: UpdateMessage): void {
+  handleUpdateMessage(update: UpdateMessage) {
     liveState.value.roomCode = update.data.room.code;
     liveState.value.party = update.data.room.clients === null ? [] : update.data.room.clients; //Filter on backend
     state.value.chaosClock = update.data.room.disasterMasterData.chaosClock;
@@ -96,13 +99,13 @@ export default class SocketManager {
     }
   }
 
-  handleQuit(): void {
+  handleQuitMessage() {
     liveState.value.roomCode = "";
     liveState.value.party = [];
     liveState.value.dice = [];
   }
 
-  playerUpdate(): void {
+  playerUpdate() {
     if (this.socket && liveState.value.roomCode) {
       this.send({
         command: "updateplayer",
@@ -117,7 +120,7 @@ export default class SocketManager {
     }
   }
 
-  roomUpdate(): void {
+  roomUpdate() {
     if (this.socket && liveState.value.roomCode) {
       this.send({
         command: "updateroom",
@@ -130,7 +133,7 @@ export default class SocketManager {
     }
   }
 
-  joinRoom(roomCode: string): void {
+  joinRoom(roomCode: string) {
     if (this.socket) {
       this.send({
         command: 'join',
@@ -145,7 +148,7 @@ export default class SocketManager {
     }
   }
 
-  createRoom(scenario: string): void {
+  createRoom(scenario: string) {
     if (this.socket) {
       this.send({
         command: "create",
@@ -156,7 +159,7 @@ export default class SocketManager {
     }
   }
 
-  send(message: any): void {
+  send(message: any) {
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));
     } else {
