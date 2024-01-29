@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRafFn } from '@vueuse/core'
 import { getDie } from '@/dice';
 import { randomRange } from '@/utils';
+import { liveState } from '@/state';
 
 const viewingResults = ref(false);
+
+watch(viewingResults, () => {
+  viewingResults.value ?
+    liveState.value.dice = diceValues.value.filter(die => die.active).map(die => die.value) :
+    liveState.value.dice = [];
+});
 
 interface Die {
   value: number;

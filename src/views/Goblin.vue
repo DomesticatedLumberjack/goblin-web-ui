@@ -4,6 +4,7 @@ import Rules from '@/components/Rules.vue';
 import ScenarioReadonly from '@/components/ScenarioReadonly.vue';
 import PlayerSheet from '@/components/PlayerSheet.vue';
 import DiceWizard from '@/components/DiceWizard.vue';
+import Party from '@/components/Party.vue';
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import DiceWizard from '@/components/DiceWizard.vue';
 
     <div class="container">
       <Header posttitle="You are a" title="Goblin with a fat ass" />
+      <Party :dm="false" />
       <ScenarioReadonly />
       <DiceWizard/>
       <PlayerSheet />

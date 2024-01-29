@@ -4,6 +4,7 @@ import Header from '@/components/Header.vue';
 import Rules from '@/components/Rules.vue';
 import DMRules from '@/components/DMRules.vue';
 import DiceWizard from '@/components/DiceWizard.vue';
+import Party from '@/components/Party.vue';
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import DiceWizard from '@/components/DiceWizard.vue';
 
     <div class="container">
       <Header posttitle="You are the" title="disaster master" />
+      <Party/>
       <DiceWizard/>
       <DMRules />
       <Rules />

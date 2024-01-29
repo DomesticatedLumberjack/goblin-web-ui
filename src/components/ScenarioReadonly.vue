@@ -6,7 +6,7 @@ import {
   protectorsReadonly,
   richPeopleReadonly
 } from '@/data';
-import { state } from '@/state';
+import { state, liveState } from '@/state';
 
 async function parseCode() {
   const code = prompt('Paste code here');
@@ -33,7 +33,7 @@ async function parseCode() {
       and is held in <strong>{{ containersReadonly[state.container] }}</strong>.
     </p>
 
-    <div class="buttons">
+    <div v-if="!liveState.roomCode" class="buttons">
       <button @click="parseCode()">paste code</button>
     </div>
   </fieldset>

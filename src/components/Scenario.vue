@@ -6,7 +6,7 @@ import {
   protectors,
   richPeople
 } from '@/data';
-import { state } from '@/state';
+import { liveState, state } from '@/state';
 import { randomRange } from '@/utils';
 
 function randomize() {
@@ -61,10 +61,10 @@ function copyCode() {
         <option v-for="(container, index) in containers" :value="index">{{ container }}</option>
       </select>
     </div>
-
+ 
     <div class="buttons">
       <button @click="randomize()">randomize</button>
-      <button @click="copyCode()">copy code</button>
+      <button v-if="!liveState.roomCode" @click="copyCode()">copy code</button>
     </div>
   </fieldset>
 </template>

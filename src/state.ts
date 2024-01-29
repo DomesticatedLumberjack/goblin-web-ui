@@ -1,5 +1,5 @@
+import { parties, species } from 'fantastical';
 import { ref, watch } from 'vue';
-import { randomRange } from './utils';
 import {
   assOrigins,
   assSizes,
@@ -11,7 +11,8 @@ import {
   protectors,
   richPeople
 } from './data';
-import { parties, species } from 'fantastical';
+import type { Client } from './types';
+import { randomRange } from './utils';
 
 export const state = ref({
   richPerson: randomRange(0, richPeople.length - 1),
@@ -28,6 +29,12 @@ export const state = ref({
     pocketContents: defaultPocketContents[randomRange(0, defaultPocketContents.length - 1)],
     note: `Belongs to the "${parties.guild()}" guild.`
   },
+});
+
+export const liveState = ref({
+  dice: [] as number[],
+  party: [] as Client[],
+  roomCode: '',
 });
 
 watch(state, saveLocalState, { deep: true });
