@@ -58,7 +58,7 @@ onUnmounted(() => socketManager.disconnect());
           <button @click="handleJoin()">Join Room</button>
         </div>
       </div>
-      <div>
+      <div class="member-list">
         <fieldset v-for="member, i in liveState.party">
           <legend>{{ member.playerData.name }}</legend>
           <p><strong>Ass Size:</strong> {{ assSizes[member.playerData.assSize] }}</p>
@@ -83,6 +83,12 @@ onUnmounted(() => socketManager.disconnect());
 .container {
   padding: 0px;
   margin-bottom: 1em;
+}
+
+.member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .info,
