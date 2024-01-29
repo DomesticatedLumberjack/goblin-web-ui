@@ -35,9 +35,7 @@ function getSkills(member: Goblin) {
 function dieStyles(num: number) {
   const style = {
     background: `url(${getDie(num, 'white')}`
-  }
-
-  console.log(style);
+  };
 
   return style;
 }

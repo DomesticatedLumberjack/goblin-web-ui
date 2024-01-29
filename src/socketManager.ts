@@ -6,6 +6,7 @@ const address = "ws://localhost:8080/ws";
 
 export default class SocketManager {
   private socket: WebSocket | null = null;
+  private reconnect: boolean = true;
 
   constructor(isDm: boolean) {
     isDm ?
@@ -58,6 +59,10 @@ export default class SocketManager {
       liveState.value.party = [];
       liveState.value.roomCode = "";
       liveState.value.dice = [];
+
+      if (this.reconnect) {
+        setTimeout(() => this.connect(), 1000);
+      }
     });
 
     this.socket.addEventListener("error", (error) => {
@@ -69,6 +74,7 @@ export default class SocketManager {
     if (this.socket) {
       this.socket.close();
       this.socket = null;
+      this.reconnect = false;
 
       liveState.value.party = [];
       liveState.value.roomCode = "";
